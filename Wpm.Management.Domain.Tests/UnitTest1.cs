@@ -7,15 +7,26 @@ public class UnitTest1
     {
         var id = Guid.NewGuid();
 
-        var pet1 = new Pet(id)
-        {
-            Name = "Gianni", 
-            Age = 13 
-        };
+        var pet1 = new Pet(
+            id,
+            "Giana",
+            12,
+            "three-color",
+            new Weight(20.5m),
+            SexOfPet.Male);
 
 
-        var pet2 = new Pet(id);
-      
+
+        var pet2 = new Pet(
+            id,
+            "Nina",
+            10,
+            "three-color",
+            new Weight(18.5m),
+            SexOfPet.Female);
+
+
+
 
         /* This will clearly lead to a failing unit test 
          The main point to emphasize I have the ability to modify the unique Identifier of this object
@@ -33,11 +44,24 @@ public class UnitTest1
     {
         var id = Guid.NewGuid();
 
-        var pet1 = new Pet(id);
+        var pet1 = new Pet(
+            id,
+            "Giana",
+            12,
+            "three-color",
+            new Weight(20.5m),
+            SexOfPet.Male);
 
 
-        var pet2 = new Pet(id); 
-       
+
+        var pet2 = new Pet(
+            id,
+            "Nina",
+            10,
+            "three-color",
+            new Weight(18.5m),
+            SexOfPet.Female);
+
 
         Assert.True(pet1 == pet2);
     }
@@ -50,15 +74,36 @@ public class UnitTest1
         var id1 = Guid.NewGuid();
         var id2 = Guid.NewGuid();
 
+        var pet1 = new Pet(
+                id1,
+                "Giana",
+                12,
+                "three-color",
+                new Weight(20.5m),
+                SexOfPet.Male);
 
-        var pet1 = new Pet(id1);
 
 
-        var pet2 = new Pet(id2);
+        var pet2 = new Pet(
+            id2,
+            "Nina",
+            10,
+            "three-color",
+            new Weight(18.5m),
+            SexOfPet.Female);
 
 
 
         Assert.True(pet1 != pet2);
     }
 
+
+    [Fact]
+    public void Weight_should_be_equale()
+    {
+        var w1 = new Weight(20.5m);
+        var w2 = new Weight(20.5m);
+
+        Assert.True(w1 == w2);
+    }
 }
