@@ -21,9 +21,14 @@
 public class Pet : Entity
 {
 
-    public string? Name { set; get; }
+  
+    public Pet(Guid id)
+    {
+        Id = Id; 
+    }
+    public string? Name { get; init;  }
 
-    public int Age { set; get; }
+    public int Age { get; init; }
 
 
 }

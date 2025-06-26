@@ -8,7 +8,11 @@ namespace Wpm.Management.Domain
 {
     public class Entity : IEquatable<Entity>
     {
-        public Guid Id { set; get; }
+        /*
+         * The init keyword allows us to create properties that can only be initialized at the time of object creation
+         * C# 9.0 (Update) */
+
+        public Guid Id { get; init; }
 
 
         public bool Equals(Entity? other)
