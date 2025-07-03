@@ -1,4 +1,4 @@
-﻿namespace Wpm.Management.Domain
+﻿namespace Wpm.Management.Domain.ValueObjects
 {
     /* DIFF B/W CLASS AND RECORD
         Class ->  

@@ -1,4 +1,7 @@
-﻿namespace Wpm.Management.Domain.Tests;
+﻿using Wpm.Management.Domain.Entiities;
+using Wpm.Management.Domain.ValueObjects;
+
+namespace Wpm.Management.Domain.Tests;
 
 public class UnitTest1
 {
@@ -6,6 +9,9 @@ public class UnitTest1
     public void Pet_Should_be_equale()
     {
         var id = Guid.NewGuid();
+        var breedService = new FakeBreedService();
+        var breedId = new BreedId(breedService.breeds[0].Id, breedService);
+
 
         var pet1 = new Pet(
             id,
@@ -13,7 +19,8 @@ public class UnitTest1
             12,
             "three-color",
             new Weight(20.5m),
-            SexOfPet.Male);
+            SexOfPet.Male,
+            breedId);
 
 
 
@@ -23,7 +30,8 @@ public class UnitTest1
             10,
             "three-color",
             new Weight(18.5m),
-            SexOfPet.Female);
+            SexOfPet.Female,
+            breedId);
 
 
 
@@ -44,13 +52,17 @@ public class UnitTest1
     {
         var id = Guid.NewGuid();
 
+        var breedService = new FakeBreedService();
+        var breedId = new BreedId(breedService.breeds[0].Id, breedService);
+
         var pet1 = new Pet(
             id,
             "Giana",
             12,
             "three-color",
             new Weight(20.5m),
-            SexOfPet.Male);
+            SexOfPet.Male,
+            breedId);
 
 
 
@@ -60,17 +72,21 @@ public class UnitTest1
             10,
             "three-color",
             new Weight(18.5m),
-            SexOfPet.Female);
+            SexOfPet.Female,
+            breedId);
 
 
         Assert.True(pet1 == pet2);
     }
 
 
-
     [Fact]
     public void Pet_should_not_be_equal_using_operators()
     {
+        var breedService = new FakeBreedService();
+        var breedId = new BreedId(breedService.breeds[0].Id, breedService);
+
+
         var id1 = Guid.NewGuid();
         var id2 = Guid.NewGuid();
 
@@ -80,7 +96,8 @@ public class UnitTest1
                 12,
                 "three-color",
                 new Weight(20.5m),
-                SexOfPet.Male);
+                SexOfPet.Male,
+                breedId);
 
 
 
@@ -90,7 +107,8 @@ public class UnitTest1
             10,
             "three-color",
             new Weight(18.5m),
-            SexOfPet.Female);
+            SexOfPet.Female,
+            breedId);
 
 
 
@@ -107,12 +125,28 @@ public class UnitTest1
         Assert.True(w1 == w2);
     }
 
+ 
     [Fact]
-    public void weight_should_be_equale()
+    public void BreedId_should_be_valid()
     {
-        var w1 = new WeightRange(20.5m, 10.5m);
-        var w2 = new WeightRange(20.5m, 10.5m);
+        var breedService = new FakeBreedService();
+        var id = breedService.breeds[0].Id;
+        var breedId = new BreedId(id, breedService);
+        Assert.NotNull(breedId);
 
-        Assert.True(w1 == w2);
+    }
+
+    [Fact]
+    public void BreedId_should_not_be_valid()
+    {
+        var breedService = new FakeBreedService();
+        var id = Guid.NewGuid();
+
+        Assert.Throws<ArgumentException>(() =>
+        {
+            var breedId = new BreedId(id, breedService);
+
+        });
+
     }
 }

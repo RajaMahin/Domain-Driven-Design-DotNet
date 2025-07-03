@@ -1,4 +1,6 @@
-﻿namespace Wpm.Management.Domain;
+﻿using Wpm.Management.Domain.ValueObjects;
+
+namespace Wpm.Management.Domain.Entiities;
 
 
 
@@ -31,7 +33,8 @@ public class Pet : Entity
         int age,
         string color,
         Weight weight,
-        SexOfPet sexOfPet)
+        SexOfPet sexOfPet,
+        BreedId breedId)
     {
         Id = id;
         Name = name;
@@ -39,6 +42,7 @@ public class Pet : Entity
         Color = color;
         Weight = weight;
         SexOfPet = sexOfPet;
+        BreedId = breedId;
     }
 
     public string? Name { get; init; }
@@ -59,7 +63,8 @@ public class Pet : Entity
     public Weight Weight { get; init; }
     public SexOfPet SexOfPet { get; init; }
 
-
+    //FOR ADDING GUID VALIDATION 
+    public BreedId BreedId { get; init; }
 
 }
 
