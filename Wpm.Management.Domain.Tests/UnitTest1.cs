@@ -106,4 +106,13 @@ public class UnitTest1
 
         Assert.True(w1 == w2);
     }
+
+    [Fact]
+    public void weight_should_be_equale()
+    {
+        var w1 = new WeightRange(20.5m, 10.5m);
+        var w2 = new WeightRange(20.5m, 10.5m);
+
+        Assert.True(w1 == w2);
+    }
 }
