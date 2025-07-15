@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wpm.Management.Domain
+﻿namespace Wpm.SharedKernel
 {
     public class Entity : IEquatable<Entity>
     {
