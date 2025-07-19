@@ -11,6 +11,19 @@ namespace Wpm.Management.Domain.ValueObjects
         private readonly IBreedService _breedService;
         public Guid Value { set; get; }
 
+
+        public BreedId(Guid value)
+        {
+            Value = value;
+        }
+
+
+        public static BreedId Create(Guid value)
+        {
+            return new BreedId(value);
+        }
+
+
         public BreedId(Guid value, IBreedService breedService)
         {
             _breedService = breedService;
@@ -18,6 +31,7 @@ namespace Wpm.Management.Domain.ValueObjects
 
             ValidateBreed(value);
         }
+
 
         private void ValidateBreed(Guid value)
         {
