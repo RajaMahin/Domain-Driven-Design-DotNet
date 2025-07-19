@@ -1,98 +1,84 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Xml.Serialization;
-using Wpm.Clinic.Domain.ValueObjects;
+﻿using Wpm.Clinic.Domain.ValueObjects;
 using Wpm.SharedKernel;
 
-namespace Wpm.Clinic.Domain
+namespace Wpm.Clinic.Domain;
+
+public class Consultation : AggregateRoot
 {
-    /* WE DO NOT WANT ANYTHING TO BE MODIFIED ONCE THE CONSULTATION IS CLOSED */
-    public class Consultation : AggregateRoot
+    private readonly List<DrugAdministration> administeredDrugs = new();
+    private readonly List<VitalSigns> vitalSignReadings = new();
+    public DateTime StartedAt { get; init; }
+    public DateTime? EndedAt { get; private set; }
+    public Text Diagnosis { get; private set; }
+    public Text Treatment { get; private set; }
+    public PatientId PatientId { get; init; }
+    public Weight CurrentWeight { get; private set; }
+    public ConsultationStatus Status { get; private set; }
+    public IReadOnlyCollection<DrugAdministration> AdministeredDrugs => administeredDrugs;
+    public IReadOnlyCollection<VitalSigns> VitalSignReadings => vitalSignReadings;
+
+    public Consultation(PatientId patientId)
     {
-        public Consultation(PatientId patientId)
+        Id = Guid.NewGuid();
+        PatientId = patientId;
+        Status = ConsultationStatus.Open;
+        StartedAt = DateTime.UtcNow;
+    }
+    public void RegisterVitalSigns(IEnumerable<VitalSigns> vitalSigns)
+    {
+        ValidateConsultationStatus();
+        vitalSignReadings.AddRange(vitalSigns);
+    }
+
+    public void AdministerDrug(DrugId drugId, Dose dose)
+    {
+        ValidateConsultationStatus();
+        var newDrugAdministration = new DrugAdministration(drugId, dose);
+        administeredDrugs.Add(newDrugAdministration);
+    }
+
+    public void End()
+    {
+        ValidateConsultationStatus();
+
+        if (Diagnosis == null || Treatment == null || CurrentWeight == null)
         {
-            Id = Guid.NewGuid();
-            PatientId = patientId;
-            Status = ConsultationStatus.Open;
-            StartedAt = DateTime.UtcNow;
+            throw new InvalidOperationException("The consultation cannot be ended.");
         }
 
+        Status = ConsultationStatus.Closed;
+        EndedAt = DateTime.UtcNow;
+    }
 
-        private readonly List<DrugAdministration> adminsteredDrugs = [];
+    public void SetWeight(Weight weight)
+    {
+        ValidateConsultationStatus();
+        CurrentWeight = weight;
+    }
 
+    public void SetDiagnosis(Text diagnosis)
+    {
+        ValidateConsultationStatus();
+        Diagnosis = diagnosis;
+    }
 
-        public IReadOnlyCollection<DrugAdministration> AdminsteredDrugs => adminsteredDrugs.AsReadOnly();
-        public DateTime StartedAt { private set; get; }
-        public DateTime EndedAt { private set; get; }
+    public void SetTreatment(Text treatment)
+    {
+        ValidateConsultationStatus();
+        Treatment = treatment;
+    }
 
-
-        public Text Diagnoses { get; private set; }
-
-        public Text Treatment { get; private set; }
-
-
-        public PatientId PatientId { get; init; }
-
-        public Weight? CurrentWeight { set; private get; }
-
-        public ConsultationStatus Status { get; private set; }
-
-
-        #region SET METHODS 
-
-        public void SetWeight(Weight weight)
+    private void ValidateConsultationStatus()
+    {
+        if (Status == ConsultationStatus.Closed)
         {
-            ValidateConsultationStatus();
-            CurrentWeight = weight;
-        }
-
-        public void SetDiagnoses(Text diagnoses)
-        {
-            ValidateConsultationStatus();
-            Diagnoses = diagnoses;
-        }
-
-        public void SetTreatment(Text treatment)
-        {
-            ValidateConsultationStatus();
-            Treatment = treatment;
-        }
-
-        #endregion
-
-
-        public void AdministerDrug(DrugId drugId, Dose dose)
-        {
-            ValidateConsultationStatus(); 
-            var newDrugAdministration = new DrugAdministration(drugId, dose);
-            adminsteredDrugs.Add(newDrugAdministration);    
-        }
-
-
-        public void End()
-        {
-            ValidateConsultationStatus();
-
-            if (Diagnoses == null || Treatment == null || CurrentWeight == null)
-            {
-                throw new InvalidOperationException("Consultation cannot be closed without diagnoses, treatment and weight.");
-            }
-
-            Status = ConsultationStatus.Closed;
-            EndedAt = DateTime.UtcNow;
-        }
-
-        public enum ConsultationStatus
-        {
-            Open,
-            Closed
-        }
-
-        private void ValidateConsultationStatus()
-        {
-            if (Status == ConsultationStatus.Closed)
-            {
-                throw new InvalidOperationException("The consultation is already clsoed");
-            }
+            throw new InvalidOperationException("The consultation is already closed.");
         }
     }
+}
+
+public enum ConsultationStatus
+{
+    Open,
+    Closed
 }
