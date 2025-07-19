@@ -1,6 +1,6 @@
 # Domain-Driven Design with ASP.NET Core
 
-This repository contains my hands-on implementation of Domain-Driven Design (DDD) concepts while following the [LinkedIn Learning Course on DDD](https://www.linkedin.com/learning/...). 
+This repository contains my hands-on implementation of Domain-Driven Design (DDD) concepts while following the [LinkedIn Learning Course on DDD] (https://www.linkedin.com/learning/expert-domain-driven-design-ddd-implementation-in-dot-net/unleash-the-power-of-domain-driven-design-in-your-dot-net-projects?resume=false). 
 
 The goal is to reinforce my understanding by building a clean, modular, and maintainable application based on DDD principles in ASP.NET Core.
 
