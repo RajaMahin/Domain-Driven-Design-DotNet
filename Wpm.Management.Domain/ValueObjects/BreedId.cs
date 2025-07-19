@@ -1,45 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wpm.Management.Domain.ValueObjects
+﻿namespace Wpm.Management.Domain.ValueObjects;
+public record BreedId
 {
-    public record BreedId
+    private readonly IBreedService breedService;
+
+    public Guid Value { get; set; }
+    
+    private BreedId(Guid value)
     {
-        private readonly IBreedService _breedService;
-        public Guid Value { set; get; }
+        Value = value;
+    }
 
+    public static BreedId Create(Guid value)
+    {
+        return new BreedId(value);
+    }
+    public BreedId(Guid value, IBreedService breedService)
+    {
+        this.breedService = breedService;
 
-        public BreedId(Guid value)
+        ValidateBreed(value);
+
+        Value = value;
+        
+    }
+
+    private void ValidateBreed(Guid value)
+    {
+        if (breedService.GetBreed(value) == null)
         {
-            Value = value;
-        }
-
-
-        public static BreedId Create(Guid value)
-        {
-            return new BreedId(value);
-        }
-
-
-        public BreedId(Guid value, IBreedService breedService)
-        {
-            _breedService = breedService;
-            Value = value;
-
-            ValidateBreed(value);
-        }
-
-
-        private void ValidateBreed(Guid value)
-        {
-            if (_breedService.GetBreed(value) == null)
-            {
-                throw new ArgumentException("GUID NOT VALID");
-            }
-
+            throw new ArgumentException("Breed is not valid.");
         }
     }
 }
