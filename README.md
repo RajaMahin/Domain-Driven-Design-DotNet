@@ -4,6 +4,8 @@ This repository contains my hands-on implementation of Domain-Driven Design (DDD
 
 The goal is to reinforce my understanding by building a clean, modular, and maintainable application based on DDD principles in ASP.NET Core.
 
+Each and every branch contains the topic section wise code. 
+
 ## ✅ Topics Covered
 
 - DDD fundamentals: Entities, Value Objects, Aggregates, Repositories
