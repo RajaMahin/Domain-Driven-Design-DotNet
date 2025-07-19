@@ -1,4 +1,4 @@
-﻿namespace Wpm.Management.Domain.ValueObjects
+﻿namespace Wpm.SharedKernel
 {
     /* DIFF B/W CLASS AND RECORD
         Class ->  
@@ -19,12 +19,12 @@
         public Weight(decimal value)
         {
 
-            if (value < 0 )
+            if (value < 0)
             {
-                throw new ArgumentException("Weight value is invalid"); 
+                throw new ArgumentException("Weight value is invalid");
             }
 
-            Value = value; 
+            Value = value;
         }
     }
 }
