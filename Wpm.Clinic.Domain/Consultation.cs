@@ -16,6 +16,11 @@ namespace Wpm.Clinic.Domain
             StartedAt = DateTime.UtcNow;
         }
 
+
+        private readonly List<DrugAdministration> adminsteredDrugs = [];
+
+
+        public IReadOnlyCollection<DrugAdministration> AdminsteredDrugs => adminsteredDrugs.AsReadOnly();
         public DateTime StartedAt { private set; get; }
         public DateTime EndedAt { private set; get; }
 
@@ -53,6 +58,15 @@ namespace Wpm.Clinic.Domain
         }
 
         #endregion
+
+
+        public void AdministerDrug(DrugId drugId, Dose dose)
+        {
+            ValidateConsultationStatus(); 
+            var newDrugAdministration = new DrugAdministration(drugId, dose);
+            adminsteredDrugs.Add(newDrugAdministration);    
+        }
+
 
         public void End()
         {
