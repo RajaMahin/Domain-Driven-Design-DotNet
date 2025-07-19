@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wpm.SharedKernel
+namespace Wpm.Clinic.Domain
 {
-   public abstract class AggregateRoot : Entity
+    public record Text
     {
+
     }
 }
