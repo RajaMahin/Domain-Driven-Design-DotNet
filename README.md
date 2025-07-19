@@ -1,4 +1,5 @@
 # Domain-Driven Design with ASP.NET Core
+![DDDD](https://github.com/user-attachments/assets/782c2893-819a-4d8c-8dd1-6a44f5b8d86f)
 
 This repository contains my hands-on implementation of Domain-Driven Design (DDD) concepts while following the [LinkedIn Learning Course on DDD] 
 
