@@ -11,6 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IBreedService, BreedService>();
+
+builder.Services.AddScoped<IManagementRepository, ManagementRepository>();
 
 builder.Services.AddScoped<IManagementRepository, ManagementRepository>();
 
