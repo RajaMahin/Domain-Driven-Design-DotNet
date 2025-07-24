@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Wpm.Management.Api.Application;
 using Wpm.Management.Api.Infrastructure;
 using Wpm.Management.Domain;
 
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddScoped<ManagementApplicationService>();
 builder.Services.AddScoped<IBreedService, BreedService>();
 
 builder.Services.AddScoped<IManagementRepository, ManagementRepository>();
