@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Wpm.Clinic.Domain.ValueObjects;
 using Wpm.SharedKernel;
 
-namespace Wpm.Clinic.Domain
+namespace Wpm.Clinic.Domain.Entities
 {
     public class DrugAdministration : Entity
     {
