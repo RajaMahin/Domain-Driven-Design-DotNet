@@ -52,6 +52,11 @@ public class Pet : Entity
             _ => WeightClass.Ideal
         };
     }
+
+    public void SetWeight(decimal weight, IBreedService breedService)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public enum SexOfPet
