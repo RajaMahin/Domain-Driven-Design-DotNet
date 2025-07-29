@@ -26,13 +26,9 @@ public class ManagementApplicationService(IBreedService breedService,
     }
 
 
-    public async Task Handle(SetWeightCommand command)
-    {
-        var pet = await dbContext.Pets.FindAsync(command.Id);
-
-        pet.SetWeight(command.Weight, breedService: breedService);
-        
-        await dbContext.SaveChangesAsync();
-    }
+    //public async Task Handle(SetWeightCommand command)
+    //{
+       
+    //}
 
 }
